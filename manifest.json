@@ -1,52 +1,21 @@
-const CACHE_NAME = 'score-cekih-v1';
-const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './style.css',
-  './app.js',
-  './manifest.json'
-];
-
-// Service Worker Installation Pipeline
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Caching essential static structural application shell assets');
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
-      .then(() => self.skipWaiting())
-  );
-});
-
-// Cache Refresh and Management Matrix Execution Switch
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log('Clearing old system cache structures storage blocks', cache);
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
-  );
-});
-
-// Fetch Interceptor Architecture for Seamless Offline Mode Execution
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request).catch(() => {
-          // Fallback mechanism if application router fails to pull updates offline
-          return caches.match('./index.html');
-        });
-      })
-  );
-});
+{
+  "short_name": "ScoreCekih",
+  "name": "Score Cekih by Sadewa Corp",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'><rect width='192' height='192' fill='%231e1e1e'/><text x='50%' y='55%' font-family='sans-serif' font-size='90' font-weight='bold' fill='%23bb86fc' text-anchor='middle'>C</text></svg>",
+      "type": "image/svg+xml",
+      "sizes": "192x192"
+    },
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><rect width='512' height='512' fill='%231e1e1e'/><text x='50%' y='55%' font-family='sans-serif' font-size='240' font-weight='bold' fill='%23bb86fc' text-anchor='middle'>SC</text></svg>",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "display": "standalone",
+  "orientation": "portrait-primary"
+}
